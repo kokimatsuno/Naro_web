@@ -5,11 +5,15 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from gensim.models.doc2vec import Doc2Vec
+import datetime
+
+print("start",datetime.datetime.now())
 
 #モデルの読み込み
 #参照：https://yag-ays.github.io/project/pretrained_doc2vec_wikipedia/
 #gensim==3.8.1で動作
 model = Doc2Vec.load("./jawiki.doc2vec.dbow300d/jawiki.doc2vec.dbow300d.model")
+print("complete loading model")
 
 #形態素解析
 def mecab_sep(text):
@@ -49,21 +53,28 @@ for item in genre_list:
     ncode_list = df['ncode'].to_list()
     
     #類似度の計算結果を入れる配列を定義
-    similarity = np.array([[]])
+    similarity = []
     
-    basic_vecs = calc_vecs_d2v(target_docs[0]) 
     max_loop = (len(df) // 5000) + 1
     
     for i in range(max_loop):
+        print(i)
         if i == max_loop-1:
             offset = 5000  * i
             docs_vecs = calc_vecs_d2v(target_docs[offset:])
+        elif i == 0:
+            offset = 5000 * i
+            finish = 5000 * (i+1) - 1
+            docs_vecs = calc_vecs_d2v(target_docs[offset:finish])
+            basic_vecs = [docs_vecs[0]]
         else:
             offset = 5000 * i
             finish = 5000 * (i+1) - 1
             docs_vecs = calc_vecs_d2v(target_docs[offset:finish])
         
-        similarity = np.stack((similarity, cosine_similarity([basic_vecs], docs_vecs)))
+        similarity += cosine_similarity(basic_vecs, docs_vecs).tolist()
     
-    result_df = pd.DataFrame(list(zip(ncode_list, similarity[0])), columns= ['ncode', 'similarity'])
+    result_df = pd.DataFrame(list(zip(ncode_list, similarity)), columns= ['ncode', 'similarity'])
     result_df.to_csv(f'./calc_result/similarity_{item}.csv', index=False)
+
+print("end",datetime.datetime.now())
