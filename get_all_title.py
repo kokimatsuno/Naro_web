@@ -26,7 +26,7 @@ api_url="https://api.syosetu.com/novelapi/api/"
 # 接続DBファイルの指定
 with open ("db_pass.txt", "r", encoding="utf-8") as f:
     dbpass = f.read()
-    dbpass.replace("\n", "")
+    dbpass = dbpass.replace("\n", "")
 
 engine = create_engine(f"mysql+pymysql://s19752km:{dbpass}@webdb.sfc.keio.ac.jp:3306/s19752km")
 

@@ -25,7 +25,7 @@ api_url="https://api.syosetu.com/novelapi/api/"
 # 接続DBファイルの指定
 with open ("db_pass.txt", "r", encoding="utf-8") as f:
     dbpass = f.read()
-    dbpass.replace("\n", "")
+    dbpass = dbpass.replace("\n", "")
 
 engine = create_engine(f"mysql+pymysql://s19752km:{dbpass}@webdb.sfc.keio.ac.jp:3306/s19752km")
 
@@ -135,8 +135,6 @@ def dump_to_mysql(df, for_cnt):
 def mysql_dupulicate_erase():
     engine = create_engine("mysql+pymysql://s19752km:a0zJdmjW@webdb.sfc.keio.ac.jp:3306/s19752km")
     con = engine.connect()
-
-    print("start update in mysql")
     
     #tmpテーブルの重複チェック
     print("start Duplication check in mysql")
@@ -151,6 +149,7 @@ def mysql_dupulicate_erase():
     
     print("Complete Duplication check")
 
+    print("start update in mysql")
     
     #アップデート対象となる古いデータを削除
     sql = "delete from Naro_All_info where ncode = any(select ncode from Naro_All_info_tmp)"
