@@ -59,22 +59,21 @@ if __name__ == "__main__":
         similarity = []
         
         max_loop = (len(df) // 5000) + 1
-        
         for i in range(max_loop):
             if i == max_loop-1:
                 offset = 5000  * i
                 docs_vecs = calc_vecs_d2v(target_docs[offset:])
             elif i == 0:
                 offset = 5000 * i
-                finish = 5000 * (i+1) - 1
+                finish = 5000 * (i+1)
                 docs_vecs = calc_vecs_d2v(target_docs[offset:finish])
                 basic_vecs = [docs_vecs[0]]
             else:
                 offset = 5000 * i
-                finish = 5000 * (i+1) - 1
+                finish = 5000 * (i+1)
                 docs_vecs = calc_vecs_d2v(target_docs[offset:finish])
             
-            similarity += cosine_similarity(basic_vecs, docs_vecs).tolist()
+            similarity += cosine_similarity(basic_vecs, docs_vecs).tolist()[0]
         
         result_df = pd.DataFrame(list(zip(ncode_list, similarity)), columns= ['ncode', 'similarity'])
         result_df.to_csv(f'./calc_result/similarity_{item}.csv', index=False)
