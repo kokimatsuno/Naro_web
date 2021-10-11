@@ -4,6 +4,9 @@
 /*narou/eachnovel/index.html*/
 header("X-Content-Type-Options: nosniff");
 
+//エスケープ処理
+$_GET['ncode'] = htmlspecialchars($_GET['ncode'], ENT_QUOTES, "utf-8");
+
 require ('../function/db_operation.php');
 //個別タイトルの詳細データを獲得
 $result = ncode_search_detail_comp($pdo);
@@ -24,7 +27,7 @@ $keyword_array = explode(" ", $result['keyword']);
   <body>
     <div class="footerFixed">
       <header>
-        <h1><a href="https://web.sfc.keio.ac.jp/~s19752km/narou/">「小説家になろう」検索サイト</a></h1>
+        <h1><a href="https://web.sfc.keio.ac.jp/~s19752km/narou/">「小説家になろう」検索サイト（非公式）</a></h1>
         <p id="title_annotation">※本サービスは株式会社ヒナプロジェクトが提供するものではありません</p>
         <nav>
           <ul id="nav">
@@ -42,21 +45,25 @@ $keyword_array = explode(" ", $result['keyword']);
           <span class="read_novel_button">
             <?php /*セキュリティ対策のために rel=noopener noreferrerを設定しておく。
             （開いた先にwindow.opener.location = newURL があると、開いた先でこちらのurlが操作される）*/?>
-          <a href="https://ncode.syosetu.com/<?php echo $result['ncode']?>" target="_blank" rel="noopener noreferrer">小説を読む。</a>
+            <a href="https://ncode.syosetu.com/<?php echo $result['ncode']?>" target="_blank" rel="noopener noreferrer">小説を読む。</a>
           </span>
-          <small class="button_notice"><small>『小説家になろう』のサーバに移動します。</small></small>
+          <small class="button_notice"><small>『小説家になろう』のサーバに移動します。</small></small><br><br>
+          <span class="read_novel_button">
+            <a href="https://web.sfc.keio.ac.jp/~s19752km/narou/similar/?ncode=<?php echo $result['ncode'];?>">類似した小説を探す</a>
+          </span>
 
-        <h3>あらすじ
-  <?php
-      if($result['noveltype'] == 1){ echo "<span class=\"novel_type\">連載</span>";}
-    else{ echo "<span class=\"novel_type\">短編</span>";}
-  ?>
+          <h3>あらすじ
+<?php
+    if($result['noveltype'] == 1){ echo "<span class=\"novel_type\">連載</span>";}
+  else{ echo "<span class=\"novel_type\">短編</span>";}
+?>
         </h3>
         <div id="story_box">
-  <?php
-      foreach($story_array as $value){
-        echo $value."<br>";
-      }?>
+          <?php
+              foreach($story_array as $value){
+                echo $value."<br>";
+              }
+          ?>
       <br>[キーワード：<?php
         foreach($keyword_array as $key => $value){
           echo "<a href=\"https://web.sfc.keio.ac.jp/~s19752km/narou/search.php?search_type=keyword&q=".$value."\">".$value."</a>&nbsp;&nbsp;";

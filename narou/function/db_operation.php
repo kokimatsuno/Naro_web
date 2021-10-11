@@ -1,6 +1,14 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
+//エスケープ処理
+$_GET['q'] = htmlspecialchars($_GET['q'], ENT_QUOTES, "utf-8");
+$_GET['sort'] = htmlspecialchars($_GET['sort'], ENT_QUOTES, "utf-8");
+$_GET['submit'] = htmlspecialchars($_GET['submit'], ENT_QUOTES, "utf-8");
+$_GET['search_type'] = htmlspecialchars($_GET['search_type'], ENT_QUOTES, "utf-8");
+$_GET['ncode'] = htmlspecialchars($_GET['ncode'], ENT_QUOTES, "utf-8");
+
+
 //DB接続
 $host = 'webdb.sfc.keio.ac.jp';
 $db   = 's19752km';
@@ -31,7 +39,7 @@ if($_GET['sort'] != "length" && $_GET['sort'] != "genre" && $_GET['sort'] != "gl
 }
 
 
-//////DB検索
+//////DB検索/////
 
 //ncode完全一致・詳細データ取得
 function ncode_search_detail_comp($pdo){
@@ -93,6 +101,26 @@ $offset_par = ((int)($_GET['page_id']) - 1) * 20;
   $stmt->execute();
 
   $result = $stmt->fetchAll();
+  //DB切断
+  $stmt = null;
+  $pdo = null;
+  return $result;
+}
+
+//ncodeから類似検索をかける
+function search_similar($pdo){
+  //ジャンル番号を取得し、参照テーブルを特定
+  $stmt = $pdo->prepare("select genre, similarity from Naro_All_info where ncode = :ncode");
+  $stmt->bindValue(":ncode", $_GET['ncode']);
+  $stmt->execute();
+  $result_tmp = $stmt->fetch(); 
+
+  $table_name = "Naro_similarity_{$result_tmp['genre']}";
+
+  $stmt = $pdo->prepare("select title, ncode, story, writer from {$table_name} order by abs({$result_tmp['similarity']}) offset 1 ASCE limit 50");
+  $stmt->execute();
+  $result = $stmt->fetchAll();
+
   //DB切断
   $stmt = null;
   $pdo = null;

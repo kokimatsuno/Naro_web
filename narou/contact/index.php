@@ -107,7 +107,9 @@ function post_message($message){
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width,initial-scale=1" >
-   <title>「小説家になろう」検索サイト</title>
+   <title>「小説家になろう」検索サイト（非公式）
+     
+   </title>
 </head>
 
 <body>

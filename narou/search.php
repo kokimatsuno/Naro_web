@@ -6,12 +6,6 @@ header("X-Content-Type-Options: nosniff");
 require("function/db_operation.php");
 require("function/other_func.php");
 
-//エスケープ処理
-$_GET['q'] = htmlspecialchars($_GET['q'], ENT_QUOTES, "utf-8");
-$_GET['sort'] = htmlspecialchars($_GET['sort'], ENT_QUOTES, "utf-8");
-$_GET['submit'] = htmlspecialchars($_GET['submit'], ENT_QUOTES, "utf-8");
-$_GET['search_type'] = htmlspecialchars($_GET['search_type'], ENT_QUOTES, "utf-8");
-
 ?>
 
 <!DOCTYPE html>
