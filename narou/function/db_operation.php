@@ -143,7 +143,7 @@ function search_similar($pdo){
   $GLOBALS['result_cnt'] = (int)60;
 
   //類似検索
-  //対象similarity前後60件を抜き出し、一時テーブルへ保存
+  //対象similarity前後60件を抜き出し、表示分のみを一時テーブルへ保存
   $pdo->query("create temporary table {$tmp_table_name} as (select ncode,  similarity from {$table_name} where similarity < {$similarity} limit 60) union (select ncode,  similarity from {$table_name} where similarity > {$similarity} limit 60) order by abs(similarity - {$similarity}) limit 10 offset {$offset_par}");
 
   $pdo->query("alter table {$tmp_table_name} add id int not null primary key auto_increment first");
