@@ -75,8 +75,9 @@ def update_novel_info():
         r =  gzip.decompress(res).decode("utf-8")
 
         # pandasのデータフレームに追加する処理
-        df = pd.read_json(r)
-        df = df.drop(0)
+        df_tmp = pd.read_json(r)
+        df_tmp = df_tmp.drop(0)
+        df = pd.concat([df, df_tmp])
 
         last_general_lastup = df.iloc[-1]["general_lastup"]
 
@@ -84,23 +85,16 @@ def update_novel_info():
         lastup = int(lastup)
         #取得間隔を空ける
         tm.sleep(interval)
-
-        # allcount列を削除
-        df = df.drop("allcount", axis=1)
-        #df.drop_duplicates(subset='ncode', inplace=True)
-        df = df.reset_index(drop=True)
-
-        #mysqlへデータを保存
-        dump_to_mysql(df, i)
+        
         tm.sleep(10)
-    con = engine.connect()
 
-    result_data = con.execute("select count(*) from Naro_All_info_tmp")
-    #result_dataを可読状態にする
-    for result in result_data:
-        pass
-    print("Complete saving all data to mysql\n取得件数　", result[0])
-
+    #mysqlへデータを保存]
+    print("send data to MySQL")
+    # allcount列を削除
+    df = df.drop("allcount", axis=1)
+    df.drop_duplicates(subset='ncode', inplace=True)
+    df = df.reset_index(drop=True)
+    dump_to_mysql(df, i)
 
     #DB重複チェック
     mysql_dupulicate_erase()
@@ -108,6 +102,7 @@ def update_novel_info():
     #データ件数をDBから取得
     con = engine.connect()
     result_data = con.execute("select count(*) from Naro_All_info")
+    con.close()
     #result_dataを可読状態にする
     for result in result_data:
         pass
@@ -119,21 +114,15 @@ def update_novel_info():
 ### mysqlに書き込む処理 ###
 def dump_to_mysql(df, for_cnt):
     try:
-        if for_cnt == 0:
-            df.to_sql("Naro_All_info_tmp", con=engine, if_exists='replace', index=False, method='multi')
-        else:
-            df.to_sql("Naro_All_info_tmp", con=engine, if_exists='append', index=False, method='multi')
+        #to_sqlを実行すると、DBでSLEEP状態のコマンドが発生するので注意
+        df.to_sql("Naro_All_info_tmp", con=engine, if_exists='replace', index=False)
     except:
         engine = create_engine("mysql+pymysql://s19752km:a0zJdmjW@webdb.sfc.keio.ac.jp:3306/s19752km")
-        if for_cnt == 0:
-            df.to_sql("Naro_All_info_tmp", con=engine, if_exists='replace', index=False, method='multi')
-        else:
-            df.to_sql("Naro_All_info_tmp", con=engine, if_exists='append', index=False, method='multi')
+        df.to_sql("Naro_All_info_tmp", con=engine, if_exists='replace', index=False)
 
 
 ###重複レコードの検知・削除・アップデートを行う###
 def mysql_dupulicate_erase():
-    engine = create_engine("mysql+pymysql://s19752km:a0zJdmjW@webdb.sfc.keio.ac.jp:3306/s19752km")
     con = engine.connect()
     
     #tmpテーブルの重複チェック

@@ -33,8 +33,6 @@ require("function/other_func.php");
         </nav>
       </header>
 
-
-
       <!--検索フォーム-->
     <form class ="search_container" action="https://web.sfc.keio.ac.jp/~s19752km/narou/search.php" method="get">
       <!--searchtypeを選択するプルダウン-->

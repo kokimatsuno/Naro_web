@@ -90,6 +90,24 @@ padding-left: 2%;
 padding-right: 2%;
 }
 
+/*ロード画面*/
+#loading {
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  position: relative;
+}
+#loading img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#hidden {
+  display: none;
+}
+/*以上*/
+
 /*小説タイプを表示するボックススタイル*/
 .novel_type{
   webkit-border-radius: 3px;
@@ -150,6 +168,22 @@ padding-right: 2%;
     padding: 0;
 }
 
+/*検索結果のリスト内にある類似検索ボタン*/
+.list_similar_btn {
+  border: 1px solid silver;
+  display: block;
+  width: 30%;
+  font-size: 1.0em;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 8px;
+  margin-left: 60%;
+  text-decoration: none;
+  color: #33339a;
+  background-color: #eee;
+  height: auto;
+}
 
 /*検索フォーム*/
 form.search_container{
@@ -367,6 +401,8 @@ footer{
 _::-webkit-full-page-media, _:future, :root #select_search_type{
   height:2.3em;
 }
+
+
 
 /*スマホ用*/
 @media screen and (max-width:480px) {
