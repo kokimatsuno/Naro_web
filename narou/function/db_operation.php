@@ -5,6 +5,7 @@ $_GET['sort'] = htmlspecialchars($_GET['sort'], ENT_QUOTES, "utf-8");
 $_GET['submit'] = htmlspecialchars($_GET['submit'], ENT_QUOTES, "utf-8");
 $_GET['search_type'] = htmlspecialchars($_GET['search_type'], ENT_QUOTES, "utf-8");
 $_GET['ncode'] = htmlspecialchars($_GET['ncode'], ENT_QUOTES, "utf-8");
+$_GET['title'] = htmlspecialchars($_GET['title'], ENT_QUOTES, "utf-8");
 
 
 //DB接続
@@ -138,19 +139,23 @@ function search_similar($pdo){
   if($_GET['page_id'] == "" || empty($_GET['page_id'])){
     $_GET['page_id'] = (int)1;
     }
-  $offset_par = ((int)($_GET['page_id']) - 1) * 20;
+  $offset_par = ((int)($_GET['page_id']) - 1) * 10;
   $GLOBALS['result_cnt'] = (int)60;
 
   //類似検索
   //対象similarity前後60件を抜き出し、一時テーブルへ保存
-  $stmt = $pdo->prepare("create temporary table {$tmp_table_name} as (select ncode,  similarity from {$table_name} where similarity < {$similarity} limit 60) union (select ncode,  similarity from {$table_name} where similarity > {$similarity} limit 60) order by abs(similarity - {$similarity}) limit 60");
-  $stmt->execute();
+  //$stmt = 
+  $pdo->query("create temporary table {$tmp_table_name} as (select ncode,  similarity from {$table_name} where similarity < {$similarity} limit 60) union (select ncode,  similarity from {$table_name} where similarity > {$similarity} limit 60) order by abs(similarity - {$similarity}) limit 10 offset {$offset_par}");
+  //$stmt->execute();
 
-  $stmt = $pdo->prepare("alter table {$tmp_table_name} add id int not null primary key auto_increment first");
-  $stmt->execute();
+  //$stmt = 
+  $pdo->query("alter table {$tmp_table_name} add id int not null primary key auto_increment first");
+  //$stmt->execute();
   
-  $stmt = $pdo->prepare("select {$tmp_table_name}.ncode, Naro_All_info.writer, Naro_All_info.title, Naro_All_info.story from {$tmp_table_name} inner join Naro_All_info on {$tmp_table_name}.ncode = Naro_All_info.ncode order by {$tmp_table_name}.id limit 20 offset {$offset_par}");
-  $stmt->execute();  
+  
+  //$stmt = $pdo->query("select {$tmp_table_name}.ncode, Naro_All_info.writer, Naro_All_info.title, Naro_All_info.story from {$tmp_table_name} inner join Naro_All_info on {$tmp_table_name}.ncode = Naro_All_info.ncode order by {$tmp_table_name}.id limit 10 offset {$offset_par}");
+  //$stmt->execute(); 
+  $stmt = $pdo->query("select {$tmp_table_name}.ncode, Naro_All_info.writer, Naro_All_info.title, Naro_All_info.story from {$tmp_table_name} inner join Naro_All_info on {$tmp_table_name}.ncode = Naro_All_info.ncode order by {$tmp_table_name}.id");
   $result = $stmt->fetchAll();
 
   //DB切断
@@ -161,6 +166,16 @@ function search_similar($pdo){
 
 //https://qiita.com/Hiraku/items/71873bf31e503eb1b4e1
 
+
+
+/*
+create temporary table tmp as (select ncode,  similarity from Naro_similarity_201 where similarity <  0.4015710949897766 limit 60) union (select ncode,  similarity from Naro_All_info where similarity >  0.4015710949897766 limit 60) order by abs(similarity -  0.4015710949897766) limit 20 offset 0;
+alter table tmp add id int not null primary key auto_increment first;
+select tmp.ncode, Naro_All_info.title from tmp inner join Naro_All_info on tmp.ncode = Naro_All_info.ncode order by tmp.id limit 10 offset 0;
+
+select ncode, writer, title, story from Naro_All_info where ncode = any(select ncode from tmp limit 10 offset 0);
+
+
+select tmp2.ncode, Naro_All_info.title from tmp2 inner join Naro_All_info on tmp2.ncode = Naro_All_info.ncode order by tmp2.id;*/
+
 ?>
-
-

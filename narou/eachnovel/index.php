@@ -50,9 +50,9 @@ $keyword_array = explode(" ", $result['keyword']);
           </span>
           <small class="button_notice"><small>『小説家になろう』のサーバに移動します。</small></small><br><br>
           <span class="read_novel_button">
-            <a href="https://web.sfc.keio.ac.jp/~s19752km/narou/similar.php?search_type=similar&ncode=<?php echo $result['ncode'];?>">類似した小説を探す</a>
+            <a href="https://web.sfc.keio.ac.jp/~s19752km/narou/similar.php?search_type=similar&ncode=<?php echo $result['ncode'];?>&title=<?php echo $result['title'];?>">類似した小説を探す</a>
           </span>
-
+          
           <h3>あらすじ
 <?php
     if($result['noveltype'] == 1){ echo "<span class=\"novel_type\">連載</span>";}

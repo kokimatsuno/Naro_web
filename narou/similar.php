@@ -4,8 +4,6 @@ header('Content-Type: text/html; charset=utf-8');
 
 require("./function/db_operation.php");
 require("./function/other_func.php");
-
-ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -45,10 +43,7 @@ ob_start();
       <script src="function/func.js"></script>
         <h2>類似検索結果</h2>
         <h3>検索対象：<?php 
-        flush();
-        ob_flush();
-        $result_target = ncode_search_title($pdo);
-        echo "<a href=\"https://web.sfc.keio.ac.jp/~s19752km/narou/eachnovel/?ncode={$result_target['ncode']}\">{$result_target['title']}</a>";
+        echo "<a href=\"https://web.sfc.keio.ac.jp/~s19752km/narou/eachnovel/?ncode={$_GET['ncode']}\">{$_GET['title']}</a>";
         ?></h3>
         <?php
         $result = search_similar($pdo);

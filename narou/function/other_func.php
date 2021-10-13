@@ -3,11 +3,12 @@
 //ページング機能を搭載して、検索結果を表示する。
 function paging_view($result){
     if($_GET['search_type'] == "similar"){
-      $paging_url = "https://web.sfc.keio.ac.jp/~s19752km/narou/similar.php?search_type=similar&ncode={$_GET['ncode']}&page_id=";
+      $paging_url = "https://web.sfc.keio.ac.jp/~s19752km/narou/similar.php?search_type=similar&ncode={$_GET['ncode']}&title={$_GET['title']}&page_id=";
+      define('MAX',10); // 1ページの記事の表示数
     }else{
       $paging_url = "https://web.sfc.keio.ac.jp/~s19752km/narou/search.php?search_type={$_GET['search_type']}&q={$_GET['q']}&submit={$_GET['submit']}&sort={$_GET['sort']}&page_id=";
+      define('MAX',20); // 1ページの記事の表示数
     }
-    define('MAX',20); // 1ページの記事の表示数
     $max_page = ceil($GLOBALS["result_cnt"] / MAX);  //トータルページ数
 
     if(!isset($_GET['page_id'])){   //page_id：urlパラメータにある現在のページ数
@@ -74,7 +75,8 @@ function search_list($search_db){
     }else{
       echo $story_tmp."<br>";
     }
-    echo "<div class='list_similar_btn'><a href='https://web.sfc.keio.ac.jp/~s19752km/narou/similar.php?search_type=similar&ncode={$value['ncode']}'>類似検索</a></div>";
+    $value['title'] = htmlspecialchars($value['title'], ENT_QUOTES, "utf-8");
+    echo "<div class='list_similar_btn'><a href='https://web.sfc.keio.ac.jp/~s19752km/narou/similar.php?search_type=similar&ncode={$value['ncode']}&title={$value['title']}'>類似検索</a></div>";
     echo "</span>";
     echo "</div>";
   }
