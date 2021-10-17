@@ -23,6 +23,9 @@ MySQLにアクセス可能なサーバー上では、類似性計算を可能に
 ## similarity_to_sql.py
 CSVデータをMySQLへ保存するためのプログラム。
 理由は、send_data.pyで記述
+<br>
+<br>
+update_narou_db.pyからsimilarity_to_sql.pyをサーバー上で自動実行することにより、定期的なアップデートを行っている。
 
 ## narouディレクトリ
 サイト作成のためのコードが存在する。<br>
