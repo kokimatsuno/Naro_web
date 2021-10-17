@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine
 import pymysql
+import datetime
+
+print("start", datetime.datetime.now() flush=True)
 
 with open ("db_pass.txt", "r", encoding="utf-8") as f:
     dbpass = f.read()
@@ -16,3 +19,5 @@ for item in genre_list:
     print(f"start to_sql process in {item}")
     df = pd.read_csv(f"./calc_result/similarity_{item}.csv")
     df.to_sql(f"Naro_similarity_{item}", con=engine, if_exists='replace', index=False, method='multi')
+    
+print("end", datetime.datetime.now())

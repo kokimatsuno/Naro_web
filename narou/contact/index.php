@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="../css/base.css">
-<link rel="stylesheet" href="../css/contact_style.css">
-
 <?php
 header("X-Content-Type-Options: nosniff");
 
@@ -106,14 +103,33 @@ function post_message($message){
 <html>
 <head>
    <meta charset="utf-8">
+   <link rel="stylesheet" href="../css/base.css">
+   <link rel="stylesheet" href="../css/contact_style.css">
+   <meta name="google" content="nositelinkssearchbox">
    <meta name="viewport" content="width=device-width,initial-scale=1" >
-   <title>「小説家になろう」検索サイト（非公式）
-     
-   </title>
+   <title>Contact |「小説家になろう」類似検索サイト</title>
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-207399511-3"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-207399511-3');
+      </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PH3N219QEH"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PH3N219QEH');
+      </script>
 </head>
 
 <body>
-  <h1> <a href="https://web.sfc.keio.ac.jp/~s19752km/narou/">「小説家になろう」検索サイト</a></h1>
+  <h1> <a href="https://web.sfc.keio.ac.jp/~s19752km/narou/">「小説家になろう」類似検索サイト</a></h1>
 
 
 <?php if($mode == "input"){ ?>

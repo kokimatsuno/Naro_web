@@ -4,14 +4,33 @@
   <head>
     <meta charset="utf-8">
      <meta name="viewport" content="width=device-width,initial-scale=1" >
+     <meta name="google" content="nositelinkssearchbox">
      <link rel="stylesheet" href="../css/base.css">
-     <title>「小説家になろう」検索サイト（非公式）</title>
+     <title>About |「小説家になろう」類似検索サイト</title>
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-207399511-3"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-207399511-3');
+      </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PH3N219QEH"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PH3N219QEH');
+      </script>
   </head>
 
   <body>
     <div class="footerFixed">
       <header>
-        <h1> <a href="https://web.sfc.keio.ac.jp/~s19752km/narou/">「小説家になろう」検索サイト（非公式）</a></h1>
+        <h1> <a href="https://web.sfc.keio.ac.jp/~s19752km/narou/">「小説家になろう」類似検索サイト</a></h1>
         <p id="title_annotation">※本サービスは株式会社ヒナプロジェクトが提供するものではありません</p>
         <nav>
           <ul id="nav">
@@ -39,9 +58,9 @@
           <p>このサイトで表示されるデータは、「小説家になろう」APIから取得したデータをMySQLサーバーへ登録したものです。<br>
             そして、Webサイトに訪問した際、Apacheサーバーからデータベースを参照するという設計になっています。<br>
             小説の類似性の判断は、小説のあらすじを基にしてDoc2Vecという機械学習モデルを使用しています。<br>
+            この類似性の計算プログラムは1〜2週間に1回程度となっておりますため、掲載されたばかりの小説に関しては、未対応の可能性があります。<br>
+            その点をご了承いただきたく思います。<br>
           </p>
-        <img src="../img/web_schema.jpg" alt="構成図">
-
         <h2 class="about">使用言語</h2>
           <p>Python3・HTML5・PHP7.2・JavaScript(Jquery3.6)・CSS<br>
             Pythonは、「小説家になろう」APIからデータを取得する際に使用しました。
@@ -51,10 +70,11 @@
           <p>「小説家になろう」API・LINE Notify<br>
             LINE Notifyを用いて、お問い合わせフォームから送信された情報が、自分のLINEアカウントへ送信されるように設定してあります
           </p>
-        <h2 class="about">ソースコード</h2>
-          <p>Github:https://github.com/kokimatsuno/Naro_web</p>
         <h2 class="about">その他</h2>
-        <p>問い合わせ・ご意見・脆弱性の報告などはContactからお願いします。</p>
+        <p>問い合わせ・ご意見・脆弱性の報告などはContactからお願いします。<br>
+        また、「小説家になろう」で削除されている小説がまだこちらで掲載されているといったことや<br>
+        類似検索で「全然似てないじゃないか！」というようなことがありましたら、併せてご連絡ください。<br>
+        </p>
       </div>
       <footer>
       <br>小説家になろう」はヒナプロジェクトの登録商標です。<br>

@@ -38,7 +38,9 @@ h3 {
   margin-bottom: 2px;
 }
 
-/*ヘッダーメニュー*/
+/*====================
+ヘッダーメニュー
+========================*/
 #nav {
   list-style: none;
   display: flex;
@@ -61,7 +63,9 @@ h3 {
   padding: 20px;
 }
 
-/*以上*/
+/*========================
+以上ヘッダーメニュー
+==========================*/
 
 
 a {
@@ -90,25 +94,9 @@ padding-left: 2%;
 padding-right: 2%;
 }
 
-/*ロード画面*/
-#loading {
-  width: 100%;
-  height: 100vh;
-  background-color: #fff;
-  position: relative;
-}
-#loading img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-#hidden {
-  display: none;
-}
-/*以上*/
-
-/*小説タイプを表示するボックススタイル*/
+/*===============================
+小説タイプを表示するボックススタイル
+=================================*/
 .novel_type{
   webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -121,7 +109,9 @@ padding-right: 2%;
     color: gray;
 }
 
-/*個別ページでのあらすじボックス*/
+/*===============================
+個別ページでのあらすじボックス
+==================================*/
 #story_box{
     margin:2em 0;
     position: relative;
@@ -144,17 +134,23 @@ padding-right: 2%;
     margin: 0;
     padding: 0;
 }
-/*以上*/
+/*===============================
+以上個別ページでのあらすじボックス
+================================*/
 
 
 
-/*新着結果・検索結果のあらすじ*/
+/*==============================
+新着結果・検索結果のあらすじ
+=============================*/
 .story{
   max-width:700px;
   margin-bottom: 50px;
 }
 
-/*新着結果・検索結果のリストごとのスタイル*/
+/*============================
+新着結果・検索結果のリストごとのスタイル
+==============================*/
 .search_list_box{
   margin:2em 0;
   position: relative;
@@ -167,8 +163,13 @@ padding-right: 2%;
     margin: 0;
     padding: 0;
 }
+/*============================
+以上新着結果・検索結果のリストごとのスタイル
+==============================*/
 
-/*検索結果のリスト内にある類似検索ボタン*/
+/*=================================
+検索結果のリスト内にある類似検索ボタン
+=================================*/
 .list_similar_btn {
   border: 1px solid silver;
   display: block;
@@ -185,7 +186,9 @@ padding-right: 2%;
   height: auto;
 }
 
-/*検索フォーム*/
+/*============================
+検索フォーム
+==============================*/
 form.search_container{
   position: relative;
   display:flex;
@@ -236,9 +239,55 @@ _::-webkit-full-page-media, _:future, :root .search_container input[type="submit
   top: -5px;
   outline : none;
 }
-/*以上が検索フォーム*/
 
-/*ページングスタイル*/
+.search_container label {
+	position: relative;
+	display: block;
+	width: 110px;
+	border: 1px solid black;
+	border-radius: 5px;
+	background: #fff;
+}
+
+.search_container label:before {
+	content: "";
+	position: absolute;
+	top: 45%;
+	right: 10px;
+	display: block;
+	width: 0;
+	height: 0;
+	margin: -2px 0 0 0;
+	border: 5px solid transparent;
+	border-top: 7px solid black;
+}
+
+.search_container select {
+	cursor: pointer;
+	position: relative;
+	-webkit-appearance: none;
+	appearance: none;
+	display: block;
+	width: 110px;
+	padding: 0.5em 0em;
+	color: black;
+	border: none;
+	border-radius: 5px;
+	background: transparent;
+  font-size: 13px;
+  background-color: rgba(160, 160, 160, 0.3);
+}
+
+::-ms-expand {
+	display: none;
+}
+/*============================================
+以上が検索フォーム
+===============================================*/
+
+/*============================================
+ページングスタイル
+==============================================*/
 #class_all{
   text-align: center;
 }
@@ -327,9 +376,13 @@ _::-webkit-full-page-media, _:future, :root .search_container input[type="submit
   /*-webkit-transition: background-color .2s linear, border .2s linear, color .2s linear, color .2s linear;
   transition: background-color .2s linear, border .2s linear, color .2s linear, color .2s linear;*/
 }
-/*以上がページングスタイル*/
+/*=============================
+以上がページングスタイル
+=============================*/
 
-/*footerを下部に表示*/
+/*==============================
+footerを下部に表示
+==============================-*/
 .footerFixed{
     min-height: 100vh;
     position: relative;
@@ -341,8 +394,13 @@ footer{
     position: absolute;
     bottom: 0;
 }
+/*==============================
+以上footerを下部に表示
+==============================-*/
 
-/*小説を読むボタンのスタイル*/
+/*==========================
+小説を読むボタンのスタイル
+===========================*/
 .read_novel_button a {
   display: flex;
   justify-content: space-between;
@@ -387,7 +445,9 @@ footer{
   text-decoration: none;
   background-color: #a0c4d3;
 }
-/*以上*/
+/*==========================
+以上小説を読むボタンのスタイル
+========================*/
 
 .button_notice{
   position:relative;

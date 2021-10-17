@@ -38,9 +38,11 @@ if($_GET['sort'] != "length" && $_GET['sort'] != "genre" && $_GET['sort'] != "gl
 }
 
 
-//////DB検索/////
+/*============================================
+DB検索
+==============================================*/
 
-//ncode完全一致・詳細データ取得
+/*---ncode完全一致・詳細データ取得--------*/
 function ncode_search_detail_comp($pdo){
   $stmt = $pdo->prepare("select * from Naro_All_info where ncode = :ncode");
   $stmt->bindValue(':ncode', $_GET['ncode']);
@@ -54,17 +56,20 @@ function ncode_search_detail_comp($pdo){
   return $result;
 }
 
-//ncodeからタイトル・ncodeを取得する
+/*----ncodeからタイトル・あらすじ・作者などを取得する-----*/
 function ncode_search_title($pdo){
-  $stmt = $pdo->prepare("select title, ncode from Naro_All_info where ncode = :ncode");
-  $stmt->bindValue(":ncode", $_GET['ncode']);
+  $stmt = $pdo->prepare("select ncode, title, story, writer from Naro_All_info where ncode = :ncode");
+  $stmt->bindValue(":ncode", $_GET['q']);
   $stmt->execute();
-  $result = $stmt->fetch();
-  //この関数を使うページでは、まだDBを使うので、$pdoはnullにしない
+  $result = $stmt->fetchAll();
+
+  $stmt = null;
+  $pdo = null;
+
   return $result;
 }
 
-//部分一致検索（タイトル　OR キーワード）
+/*-------部分一致検索（タイトル　OR キーワード）------*/
 function search_part($pdo){
   //空白でAND検索
   $q_array = ex_explode(array(" ", "　", "AND"), $_GET["q"]);
@@ -116,7 +121,7 @@ function search_part($pdo){
   return $result;
 }
 
-//ncodeから類似検索をかける
+/*------------ncodeから類似検索をかける-------------*/
 function search_similar($pdo){
   //ジャンル番号を取得し、参照テーブルを特定
   $stmt = $pdo->prepare("select genre from Naro_All_info where ncode = :ncode");

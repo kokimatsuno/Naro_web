@@ -53,8 +53,14 @@ function search_list($search_db){
   $max_cnt = 150; //あらすじ最大表示文字数（半角）
   foreach($search_db as $key => $value){    //foreach $key：配列の連番・$value：配列の中身（今回は配列）
     echo "<div class=\"search_list_box\">";
+
+    if($_GET['page_id'] == "" || empty($_GET['page_id'])){
+      $_GET['page_id'] = (int)1;
+      }
+    $rank = (int)$key + (int)1 + MAX * ($_GET['page_id']-1);
+
     //タイトルを表示する。
-    echo "<h3><a href=\"https://web.sfc.keio.ac.jp/~s19752km/narou/eachnovel/?ncode={$value['ncode']}\">{$value['title']}</a></h3>";
+    echo "<h3>【{$rank}】<a href=\"https://web.sfc.keio.ac.jp/~s19752km/narou/eachnovel/?ncode={$value['ncode']}\">{$value['title']}</a></h3>";
     //作者
     echo "<span class=\"list_writer\">作者：{$value['writer']}<br></span>";
 
@@ -77,6 +83,8 @@ function search_list($search_db){
     }
     $value['title'] = htmlspecialchars($value['title'], ENT_QUOTES, "utf-8");
     echo "<div class='list_similar_btn'><a href='https://web.sfc.keio.ac.jp/~s19752km/narou/similar.php?search_type=similar&ncode={$value['ncode']}&title={$value['title']}'>類似検索</a></div>";
+    echo "<div class='list_similar_btn'><a href='https://web.sfc.keio.ac.jp/~s19752km/narou/eachnovel/?ncode={$value['ncode']}&title={$value['title']}'>詳細を見る</a></div>";
+    echo "<div class='list_similar_btn'><a href='https://ncode.syosetu.com/{$value['ncode']}' target='_blank' rel='noopener noreferrer'>小説を読む</a></div>";
     echo "</span>";
     echo "</div>";
   }

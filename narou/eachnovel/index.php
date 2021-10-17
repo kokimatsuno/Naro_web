@@ -1,12 +1,8 @@
-<link rel="stylesheet" href="../css/base.css">
-
 <?php
 /*narou/eachnovel/index.html*/
 header("X-Content-Type-Options: nosniff");
 header('Content-Type: text/html; charset=utf-8');
 
-//エスケープ処理
-$_GET['ncode'] = htmlspecialchars($_GET['ncode'], ENT_QUOTES, "utf-8");
 
 require ('../function/db_operation.php');
 //個別タイトルの詳細データを獲得
@@ -21,14 +17,34 @@ $keyword_array = explode(" ", $result['keyword']);
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="google" content="nositelinkssearchbox">
+    <link rel="stylesheet" href="../css/base.css">
      <meta name="viewport" content="width=device-width,initial-scale=1" >
-    <title><?echo $result['title'];?></title>
+    <title><?php echo $result['title'];?> |「小説家になろう」類似検索サイト</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-207399511-3"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-207399511-3');
+      </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PH3N219QEH"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PH3N219QEH');
+      </script>
   </head>
 
   <body>
     <div class="footerFixed">
       <header>
-        <h1><a href="https://web.sfc.keio.ac.jp/~s19752km/narou/">「小説家になろう」検索サイト（非公式）</a></h1>
+        <h1><a href="https://web.sfc.keio.ac.jp/~s19752km/narou/">「小説家になろう」類似検索サイト</a></h1>
         <p id="title_annotation">※本サービスは株式会社ヒナプロジェクトが提供するものではありません</p>
         <nav>
           <ul id="nav">
@@ -52,7 +68,7 @@ $keyword_array = explode(" ", $result['keyword']);
           <span class="read_novel_button">
             <a href="https://web.sfc.keio.ac.jp/~s19752km/narou/similar.php?search_type=similar&ncode=<?php echo $result['ncode'];?>&title=<?php echo $result['title'];?>">類似した小説を探す</a>
           </span>
-          
+
           <h3>あらすじ
 <?php
     if($result['noveltype'] == 1){ echo "<span class=\"novel_type\">連載</span>";}
@@ -69,7 +85,7 @@ $keyword_array = explode(" ", $result['keyword']);
         foreach($keyword_array as $key => $value){
           echo "<a href=\"https://web.sfc.keio.ac.jp/~s19752km/narou/search.php?search_type=keyword&q=".$value."\">".$value."</a>&nbsp;&nbsp;";
         }?>]
-<?
+<?php
       switch($result['genre']){
         case 101: $genre = "恋愛・異世界"; break;
         case 102: $genre = "恋愛・現実世界"; break;
@@ -120,6 +136,19 @@ $keyword_array = explode(" ", $result['keyword']);
             </td>
           </tr>
         </table>
+        <h3>挿絵数</h3>
+        <?php echo $result['sasie_cnt']; ?>
+
+        <h3>会話率</h3>
+        <?php echo $result['kaiwaritu'];?>％
+
+        <h3>評価</h3>
+        総合評価ポイント    ：<?php echo $result['global_point'];?><br>
+        評価ポイント　　    ：<?php echo $result['all_point'];?><br>
+        日間評価ポイント    ：<?php echo $result['daily_point'];?><br>
+        週間評価ポイント    ：<?php echo $result['weekly_point'];?><br>
+        月間評価ポイント    ：<?php echo $result['monthly_point'];?><br>
+
       </div>
     </div>
     <footer>

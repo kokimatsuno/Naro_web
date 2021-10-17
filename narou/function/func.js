@@ -86,6 +86,8 @@ function change_search_placeholder(){
     var placeholder_txt = "タイトル検索";
   }else if(select_val == "keyword"){
     var placeholder_txt = "キーワード検索";
+  }else if(select_val == "ncode"){
+    var placeholder_txt = "Nコード検索"
   }
   $("#search_text").prop("placeholder", placeholder_txt);
 }
