@@ -74,17 +74,19 @@ function search_list($search_db){
     str_replace(["\r\n", "\r", "\n"], '', $story_after_readmore[$key]);
     if(strlen($value['story']) > $max_cnt){
       echo "<span id='id_readmore_before{$key}' class=\"readmore_before{$key}\">{$story_tmp}<br>
-            <a href=\"#readmore{$key}\" class=readmore_btn>>続きを読む</a></span>";
+            <a href=\"#readmore{$key}\" class=readmore_btn>>続きを読む</a></span><br>";
       echo "<span id=\"readmore{$key}\" class='readmore_area'>{$value['story']}<br>
-            <a href='#id_readmore_before{$key}' class='readless_btn'><小さくする</a></span>";
+            <a href='#id_readmore_before{$key}' class='readless_btn'><小さくする</a></span><br><br>";
 
     }else{
-      echo $story_tmp."<br>";
+      echo $story_tmp."<br><br>";
     }
     $value['title'] = htmlspecialchars($value['title'], ENT_QUOTES, "utf-8");
+    echo "<span class='btn_group'>";
     echo "<div class='list_similar_btn'><a href='https://web.sfc.keio.ac.jp/~s19752km/narou/similar.php?search_type=similar&ncode={$value['ncode']}&title={$value['title']}'>類似検索</a></div>";
     echo "<div class='list_similar_btn'><a href='https://web.sfc.keio.ac.jp/~s19752km/narou/eachnovel/?ncode={$value['ncode']}&title={$value['title']}'>詳細を見る</a></div>";
     echo "<div class='list_similar_btn'><a href='https://ncode.syosetu.com/{$value['ncode']}' target='_blank' rel='noopener noreferrer'>小説を読む</a></div>";
+    echo "</span>";
     echo "</span>";
     echo "</div>";
   }

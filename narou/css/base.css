@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+/*スマホの時のみ改行*/
+@media screen and (min-width: 768px){
+  .br-sp {display: none; }
+  }
+
 body{
   background: #f1f1f1;
 }
@@ -170,6 +175,10 @@ padding-right: 2%;
 /*=================================
 検索結果のリスト内にある類似検索ボタン
 =================================*/
+.btn_group{
+  display: flex;
+}
+
 .list_similar_btn {
   border: 1px solid silver;
   display: block;
@@ -179,7 +188,6 @@ padding-right: 2%;
   text-align: center;
   padding-top: 10px;
   padding-bottom: 8px;
-  margin-left: 60%;
   text-decoration: none;
   color: #33339a;
   background-color: #eee;
@@ -444,6 +452,10 @@ footer{
 .read_novel_button :hover {
   text-decoration: none;
   background-color: #a0c4d3;
+}
+
+.read_novel_button #similar{
+  margin-top: 30px;
 }
 /*==========================
 以上小説を読むボタンのスタイル

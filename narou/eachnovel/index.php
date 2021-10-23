@@ -20,7 +20,7 @@ $keyword_array = explode(" ", $result['keyword']);
     <meta name="google" content="nositelinkssearchbox">
     <link rel="stylesheet" href="../css/base.css">
      <meta name="viewport" content="width=device-width,initial-scale=1" >
-    <title><?php echo $result['title'];?> |「小説家になろう」類似検索サイト</title>
+    <title><?php echo $result['title'];?> |「小説家になろう」類似検索</title>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-207399511-3"></script>
       <script>
@@ -44,7 +44,7 @@ $keyword_array = explode(" ", $result['keyword']);
   <body>
     <div class="footerFixed">
       <header>
-        <h1><a href="https://web.sfc.keio.ac.jp/~s19752km/narou/">「小説家になろう」類似検索サイト</a></h1>
+        <h1><a href="https://web.sfc.keio.ac.jp/~s19752km/narou/">「小説家になろう」類似検索</a></h1>
         <p id="title_annotation">※本サービスは株式会社ヒナプロジェクトが提供するものではありません</p>
         <nav>
           <ul id="nav">
@@ -66,7 +66,7 @@ $keyword_array = explode(" ", $result['keyword']);
           </span>
           <small class="button_notice"><small>『小説家になろう』のサーバに移動します。</small></small><br><br>
           <span class="read_novel_button">
-            <a href="https://web.sfc.keio.ac.jp/~s19752km/narou/similar.php?search_type=similar&ncode=<?php echo $result['ncode'];?>&title=<?php echo $result['title'];?>">類似した小説を探す</a>
+            <a id="similar" href="https://web.sfc.keio.ac.jp/~s19752km/narou/similar.php?search_type=similar&ncode=<?php echo $result['ncode'];?>&title=<?php echo $result['title'];?>">類似した小説を探す</a>
           </span>
 
           <h3>あらすじ
@@ -81,9 +81,9 @@ $keyword_array = explode(" ", $result['keyword']);
                 echo $value."<br>";
               }
           ?>
-      <br>[キーワード：<?php
+      <br>[キーワード：<br class='br-sp'><?php
         foreach($keyword_array as $key => $value){
-          echo "<a href=\"https://web.sfc.keio.ac.jp/~s19752km/narou/search.php?search_type=keyword&q=".$value."\">".$value."</a>&nbsp;&nbsp;";
+          echo "・<a href=\"https://web.sfc.keio.ac.jp/~s19752km/narou/search.php?search_type=keyword&q=".$value."\">".$value."</a>&nbsp;&nbsp;&nbsp;<br class='br-sp'><br class='br-sp'>";
         }?>]
 <?php
       switch($result['genre']){
